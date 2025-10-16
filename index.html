@@ -3,224 +3,233 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Neura Vaults: Quiz + Info</title>
+  <title>Neura Vaults: Quiz Flow</title>
   <style>
     body {
-      background: url('image-11.jpeg') no-repeat center center fixed;
+      background: url('image.jpg') no-repeat center center fixed;
       background-size: cover;
-      color: #eaf6fc;
+      color: #f2f7fa;
       font-family: 'Segoe UI', 'Verdana', sans-serif;
       margin: 0; padding: 0; text-align: center;
+      min-height: 100vh;
     }
-    .logo-corner {
-      position: fixed;
-      top: 22px; left: 23px;
-      z-index: 10;
-      width: 70px; opacity: 0.12;
-      border-radius: 50%;
-      box-shadow: 0 2px 8px #2228;
-      pointer-events: none;
+    .center-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: rgba(18,24,28,0.76);
     }
-    .header {
-      margin: 40px auto 26px auto;
-      font-size: 2.1em;
-      font-weight: 700;
-      color: #67e0e7;
-      text-shadow: 0 4px 24px #161b25ee;
-      max-width: 600px;
-    }
-    .main-container {
-      max-width: 660px;
-      margin: 45px auto 15px auto;
-      background: rgba(26,32,48,0.92);
+    .logo-page img {
+      width: 260px;
       border-radius: 16px;
-      box-shadow: 0 6px 32px #0007;
-      padding: 33px 28px;
+      margin-bottom: 28px;
+      margin-top: 30px;
+      box-shadow: 0 2px 32px #050709a2;
     }
-    .info {
+    .main-btn {
+      background: #23d3e6;
+      color: #142823;
+      border: none;
+      border-radius: 24px;
+      font-size: 1.19em;
+      font-weight: 600;
+      padding: 13px 34px;
+      cursor: pointer;
+      margin-top: 27px;
+      box-shadow: 0 2px 15px #224f5c4a;
+      transition: background 0.18s;
+    }
+    .main-btn:hover { background: #19adbe; color:#fff; }
+    .quiz-box {
+      background: rgba(20,32,49,0.95);
+      border-radius: 16px;
+      box-shadow: 0 5px 25px #080a0dbe;
+      padding: 32px 24px 30px 24px;
+      max-width: 490px;
+      margin: 38px auto 0 auto;
+      display: none;
+      min-height: 320px;
       text-align: left;
-      font-size: 1em;
-      color: #e8ebfd;
-      margin-bottom: 20px;
+      position: relative;
     }
-    h2 {
-      color: #ffe069;
-      font-size: 1.2em;
-      margin-top: 0;
-      text-align: left;
-    }
-    a { color: #96d1fd; text-decoration: none; }
-    a:hover { color: #fff; }
-    .quiz-list { list-style: none; padding: 0; text-align: left; margin-bottom: 0; }
-    .quiz-q { margin-bottom: 22px; }
-    .options { margin: 10px 0 0 10px; }
+    .quiz-q { font-size: 1.15em; margin-bottom: 16px; color: #ffd457; }
+    .options { margin: 0 0 14px 0; display:flex; flex-direction:column; gap:9px;}
     .option-btn {
-      margin: 4px 0;
-      background: #2d3a58;
-      color: #ffe069;
+      background: #2a4770;
+      color: #b7f4eb;
+      border: none;
+      border-radius: 9px;
+      padding: 8px 20px;
+      font-size: 1em;
+      cursor: pointer;
+      text-align:left;
+      transition: background 0.14s, color 0.14s;
+    }
+    .option-btn.correct { background: #29d98f; color:#fff; }
+    .option-btn.incorrect { background: #d96773; color:#fff; }
+    .nav-btns {
+      margin-top: 13px;
+      text-align: right;
+    }
+    .nav-btn {
+      background: #38485f;
+      color: #ffe478;
       border: none;
       border-radius: 7px;
-      padding: 6px 16px;
+      padding: 5px 15px;
       font-size: 1em;
-      outline: none;
-      box-shadow: 0 1px 6px #161b2577;
       cursor: pointer;
-      transition: background 0.16s, color 0.16s;
-      display: block;
-      width: 100%;
-      text-align: left;
+      margin-left: 11px;
+      transition: background 0.13s;
     }
-    .option-btn.correct { background: #1ebbc3; color:#fff; }
-    .option-btn.incorrect { background: #b72c44; color:#fff; }
-    .feedback { font-weight: 600; color: #fff; margin: 6px 0 0 12px; }
+    .nav-btn:disabled { opacity: 0.45; }
+    .quiz-feedback { font-weight: 600; margin:8px 0 0 0;font-size:1em;}
     .footer {
-      margin: 36px 0 15px 0;
-      color: #70afff;
-      font-size: 1em;
+      margin: 25px 0; color: #9defff; font-size: .98em; text-align: center;
+      background: rgba(24,34,44, 0.71); border-radius:9px;padding:10px;
     }
-    @media (max-width: 750px) {
-      .main-container { padding: 5vw; }
-      .header { font-size: 1.35em; }
+    @media (max-width:550px) {
+      .quiz-box { padding: 7vw 3vw 7vw 3vw;}
+      .logo-page img { width: 65vw;}
+      .center-content { padding:13vw 0;}
     }
   </style>
 </head>
 <body>
-  <img src="IMG_20251016_070401.jpg" class="logo-corner" alt="Project Logo"/>
-  <div class="header">Neura Vaults: AI-Powered DeFi Community & Quiz</div>
-  <div class="main-container">
-    <h2>Project Introduction</h2>
-    <div class="info">
-      Neura Vaults ek innovative AI-powered crypto liquidity management project hai jo HyperEVM par bana hai.<br/>
-      24/7 AI agents vault liquidity ko re-balance karte hain, human intervention ke bina.<br/>
-      Deposit ke bad users ko aiXYZ token milta hai, jo vault ke growth ke sath value gain karta hai.<br/>
-      Funds hamesha user ke control mein rehte hain—AI sirf pre-approved functions ke through kaam karta hai.<br/>
-      Multiple lending protocols par liquidity automatically move hoti hai, jisse returns maximize ho.<br/><br/>
-      <b>Future:</b> Neura Vaults is building “self-evolving financial products” for DeFi, bringing smarter and user-friendly autonomous finance. Roadmap mein naye AI vaults, deeper integration aur features plan hain.<br/>
+  <div class="center-content logo-page" id="logo-page">
+    <img src="image.jpg" alt="Neura Vaults Logo"/>
+    <button class="main-btn" onclick="startQuiz()">Start Quiz</button>
+    <div class="footer">
+      <div><b>Twitter:</b> <a href="https://x.com/Neuravaults" target="_blank">@Neuravaults</a> &nbsp; | &nbsp; <b>Discord:</b> <a href="https://discord.gg/UcEjYaY5E" target="_blank">Join Community</a></div>
     </div>
-    <div style="margin-bottom:20px;">
-      <b>Twitter:</b> <a href="https://x.com/Neuravaults" target="_blank">@Neuravaults</a> &nbsp; | &nbsp;
-      <b>Quickstart:</b> <a href="https://neura-vaults.gitbook.io/neura-vaults/overview/quickstart" target="_blank">GitBook</a> &nbsp; | &nbsp;
-      <b>Discord:</b> <a href="https://discord.gg/UcEjYaY5E" target="_blank">Join Community</a>
+  </div>
+
+  <div class="quiz-box" id="quiz-box">
+    <div id="q-num"></div>
+    <div class="quiz-q" id="q-text"></div>
+    <div class="options" id="q-options"></div>
+    <div class="quiz-feedback" id="q-feedback"></div>
+    <div class="nav-btns">
+      <button class="nav-btn" onclick="prevQ()" id="prev-btn">Back</button>
+      <button class="nav-btn" onclick="nextQ()" id="next-btn">Next</button>
     </div>
-    <h2>Neura Vaults Quiz Bank</h2>
-    <ol class="quiz-list">
-      <!-- QUIZ QUESTIONS, interactive JS below -->
-      <li class="quiz-q" id="q1">
-        <span>What manages liquidity in Neura Vaults?</span>
-        <div class="options">
-          <button class="option-btn" onclick="check(this,1,'B')">A) Human traders</button>
-          <button class="option-btn" onclick="check(this,1,'B')">B) AI agents</button>
-          <button class="option-btn" onclick="check(this,1,'B')">C) Randomizer</button>
-          <button class="option-btn" onclick="check(this,1,'B')">D) Oracle bots</button>
-        </div><div class="feedback" id="f1"></div>
-      </li>
-      <li class="quiz-q" id="q2">
-        <span>On which network do Neura Vaults run?</span>
-        <div class="options">
-          <button class="option-btn" onclick="check(this,2,'B')">A) Ethereum</button>
-          <button class="option-btn" onclick="check(this,2,'B')">B) HyperEVM</button>
-          <button class="option-btn" onclick="check(this,2,'B')">C) Polygon</button>
-          <button class="option-btn" onclick="check(this,2,'B')">D) Binance Smart Chain</button>
-        </div><div class="feedback" id="f2"></div>
-      </li>
-      <li class="quiz-q" id="q3">
-        <span>What token do you get after deposit?</span>
-        <div class="options">
-          <button class="option-btn" onclick="check(this,3,'C')">A) aiX</button>
-          <button class="option-btn" onclick="check(this,3,'C')">B) XYZ</button>
-          <button class="option-btn" onclick="check(this,3,'C')">C) aiXYZ</button>
-          <button class="option-btn" onclick="check(this,3,'C')">D) VaultToken</button>
-        </div><div class="feedback" id="f3"></div>
-      </li>
-      <li class="quiz-q" id="q4">
-        <span>What type of custody are Neura Vaults?</span>
-        <div class="options">
-          <button class="option-btn" onclick="check(this,4,'D')">A) Managed</button>
-          <button class="option-btn" onclick="check(this,4,'D')">B) Hybrid</button>
-          <button class="option-btn" onclick="check(this,4,'D')">C) Centralized</button>
-          <button class="option-btn" onclick="check(this,4,'D')">D) Non-custodial</button>
-        </div><div class="feedback" id="f4"></div>
-      </li>
-      <li class="quiz-q" id="q5">
-        <span>Which protocol is NOT balanced by Neura?</span>
-        <div class="options">
-          <button class="option-btn" onclick="check(this,5,'C')">A) Felix</button>
-          <button class="option-btn" onclick="check(this,5,'C')">B) Hyperlend</button>
-          <button class="option-btn" onclick="check(this,5,'C')">C) PancakeSwap</button>
-          <button class="option-btn" onclick="check(this,5,'C')">D) HypurrFi</button>
-        </div><div class="feedback" id="f5"></div>
-      </li>
-      <li class="quiz-q" id="q6">
-        <span>Which contract standard powers Neura Vaults?</span>
-        <div class="options">
-          <button class="option-btn" onclick="check(this,6,'C')">A) ERC-20</button>
-          <button class="option-btn" onclick="check(this,6,'C')">B) ERC-721</button>
-          <button class="option-btn" onclick="check(this,6,'C')">C) ERC-7540</button>
-          <button class="option-btn" onclick="check(this,6,'C')">D) ERC-1155</button>
-        </div><div class="feedback" id="f6"></div>
-      </li>
-      <li class="quiz-q" id="q7">
-        <span>Can AI agents withdraw your funds?</span>
-        <div class="options">
-          <button class="option-btn" onclick="check(this,7,'C')">A) Yes</button>
-          <button class="option-btn" onclick="check(this,7,'C')">B) Only in emergencies</button>
-          <button class="option-btn" onclick="check(this,7,'C')">C) No</button>
-          <button class="option-btn" onclick="check(this,7,'C')">D) Sometimes</button>
-        </div><div class="feedback" id="f7"></div>
-      </li>
-      <li class="quiz-q" id="q8">
-        <span>What does aiXYZ support in DeFi?</span>
-        <div class="options">
-          <button class="option-btn" onclick="check(this,8,'B')">A) Staking</button>
-          <button class="option-btn" onclick="check(this,8,'B')">B) LP & collateral</button>
-          <button class="option-btn" onclick="check(this,8,'B')">C) Borrowing only</button>
-          <button class="option-btn" onclick="check(this,8,'B')">D) NFT minting</button>
-        </div><div class="feedback" id="f8"></div>
-      </li>
-      <li class="quiz-q" id="q9">
-        <span>How does Neura optimize yield?</span>
-        <div class="options">
-          <button class="option-btn" onclick="check(this,9,'B')">A) By guessing</button>
-          <button class="option-btn" onclick="check(this,9,'B')">B) Agent swarms & modeling</button>
-          <button class="option-btn" onclick="check(this,9,'B')">C) Oracle feeds</button>
-          <button class="option-btn" onclick="check(this,9,'B')">D) User voting</button>
-        </div><div class="feedback" id="f9"></div>
-      </li>
-      <li class="quiz-q" id="q10">
-        <span>Where is all Neura Vault activity recorded?</span>
-        <div class="options">
-          <button class="option-btn" onclick="check(this,10,'C')">A) Google Sheets</button>
-          <button class="option-btn" onclick="check(this,10,'C')">B) Central Server</button>
-          <button class="option-btn" onclick="check(this,10,'C')">C) On-chain</button>
-          <button class="option-btn" onclick="check(this,10,'C')">D) Discord</button>
-        </div><div class="feedback" id="f10"></div>
-      </li>
-    </ol>
   </div>
-  <div class="footer">
-    <span>© 2025 Neura Vaults AI. Join the community and shape DeFi's future!</span>
-  </div>
+
   <script>
-    // Interactive quiz feedback
-    // correct option: e.g. 'B'
-    function check(btn, qnum, correct) {
-      let options = btn.parentNode.querySelectorAll(".option-btn");
-      // Check which option is clicked
-      options.forEach(o=>{
-        o.disabled=true;
-        // Highlight correct/incorrect
-        if (o.textContent.trim()[0] == correct) {
-          o.classList.add('correct');
-        } else if (o===btn) {
-          o.classList.add('incorrect');
+    // Quiz data
+    const quiz = [
+      {
+        q: "What manages liquidity in Neura Vaults?",
+        o: ["Human traders", "AI agents", "Randomizer", "Oracle bots"],
+        a: 1 // B
+      },
+      {
+        q: "On which network do Neura Vaults run?",
+        o: ["Ethereum", "HyperEVM", "Polygon", "Binance Smart Chain"],
+        a: 1
+      },
+      {
+        q: "What token do you get after deposit?",
+        o: ["aiX", "XYZ", "aiXYZ", "VaultToken"],
+        a: 2
+      },
+      {
+        q: "What type of custody are Neura Vaults?",
+        o: ["Managed", "Hybrid", "Centralized", "Non-custodial"],
+        a: 3
+      },
+      {
+        q: "Which protocol is NOT balanced by Neura?",
+        o: ["Felix", "Hyperlend", "PancakeSwap", "HypurrFi"],
+        a: 2
+      },
+      {
+        q: "Which contract standard powers Neura Vaults?",
+        o: ["ERC-20", "ERC-721", "ERC-7540", "ERC-1155"],
+        a: 2
+      },
+      {
+        q: "Can AI agents withdraw your funds?",
+        o: ["Yes", "Only in emergencies", "No", "Sometimes"],
+        a: 2
+      },
+      {
+        q: "What does aiXYZ support in DeFi?",
+        o: ["Staking", "LP & collateral", "Borrowing only", "NFT minting"],
+        a: 1
+      },
+      {
+        q: "How does Neura optimize yield?",
+        o: ["By guessing", "Agent swarms & modeling", "Oracle feeds", "User voting"],
+        a: 1
+      },
+      {
+        q: "Where is all Neura Vault activity recorded?",
+        o: ["Google Sheets", "Central Server", "On-chain", "Discord"],
+        a: 2
+      }
+    ];
+    let step = 0;
+    let answered = Array(quiz.length).fill(null);
+
+    function startQuiz() {
+      document.getElementById('logo-page').style.display = 'none';
+      document.getElementById('quiz-box').style.display = 'block';
+      showQ();
+    }
+    function showQ() {
+      let qn = step+1;
+      document.getElementById('q-num').innerHTML = `<b>Question ${qn} of ${quiz.length}</b>`;
+      document.getElementById('q-text').textContent = quiz[step].q;
+      let opsHTML = "";
+      quiz[step].o.forEach((txt,i)=>{
+        let cls = '';
+        if(answered[step]!=null){
+          if(i===quiz[step].a) cls += ' correct';
+          else if(i===answered[step]) cls += ' incorrect';
         }
+        opsHTML += `<button class="option-btn${cls}" onclick="choose(${i})" ${answered[step]!=null?'disabled':''}>${String.fromCharCode(65+i)}) ${txt}</button>`;
       });
-      let feedback = document.getElementById("f" + qnum);
-      let selected = btn.textContent.trim()[0];
-      feedback.textContent = selected===correct ? "Correct!" : "Incorrect. Right answer: "+correct;
-      feedback.style.color = selected===correct ? "#41f473" : "#f58593";
+      document.getElementById('q-options').innerHTML = opsHTML;
+      // feedback
+      let feedback = "";
+      if(answered[step]!=null){
+        feedback = (answered[step]===quiz[step].a) ? "Correct!" : `Incorrect. Right answer: ${String.fromCharCode(65+quiz[step].a)}`;
+        document.getElementById('next-btn').disabled = false;
+      } else {
+        feedback = "";
+        document.getElementById('next-btn').disabled = true;
+      }
+      document.getElementById('q-feedback').textContent = feedback;
+      document.getElementById('prev-btn').disabled = (step==0);
+      document.getElementById('next-btn').textContent = (step===quiz.length-1)?"Finish":"Next";
+    }
+    function choose(ansIdx){
+      if(answered[step]==null){
+        answered[step]=ansIdx;
+        showQ();
+      }
+    }
+    function nextQ(){
+      if(step<quiz.length-1){
+        step++; showQ();
+      } else {
+        // End page or reset
+        document.getElementById('quiz-box').innerHTML =
+          `<div style="font-size:1.35em;margin:40px 0;">Thanks for completing the quiz!<br>
+          Correct: <b>${answered.filter((a,i)=>a===quiz[i].a).length}</b> out of <b>${quiz.length}</b></div>
+          <button class="main-btn" onclick="window.location.reload()">Restart</button>`;
+      }
+    }
+    function prevQ(){
+      if(step>0){
+        step--; showQ();
+      }
     }
   </script>
 </body>
 </html>
+
 
